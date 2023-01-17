@@ -44,7 +44,7 @@ align-items: center;
     align-items: center;
     box-shadow: 0px 5px 20px  rgb(197, 197, 197);
     /*Pushes results below search bar to remain visible*/
-    margin-bottom:0;
+    margin-bottom:1em;
 }
 
 
@@ -52,17 +52,19 @@ align-items: center;
     outline: none;
     border: none;
     background: transparent;
-    font-size: 14px;
+    font-size: 16px;
     color: rgb(48, 47, 47);
 } 
 
 .start-display{
-    opacity: 0.55;
     min-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color:rgb(82, 81, 81);
+    padding-left: 0.3em;
+    margin: 0 auto;
 }
 .large {
     font-size: 60px;
@@ -71,4 +73,38 @@ align-items: center;
  .img {
     height: 130px;
     width: 85px;
+    display: block;
+    margin: 0;
+ }
+.results-container {
+    /* border: 1px solid black; */
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid black;
+    margin-bottom: 1em;
+    height: 100%;
+
+}
+ .result-type, .result-year {
+    font-size: 12px;
+    margin-left: 1em;
+ }
+
+ /* .results-text {
+    border: 1px solid red;
+ } */
+ 
+ .result-title {
+    color: #6c63cf;
+    font-weight: bold;
+    margin-left: 1em;
+ }
+ 
+ .add-movie {
+    margin-left: 2.5em;
+    color: #ffffff;
+    background-color: #6c63cf;
+    padding: 0.3em 0.3em;
+    border-radius: 5px;
+    letter-spacing: 0.1em;
  }
