@@ -3,7 +3,7 @@ const searchBtn = document.getElementById('search-btn')
 let resultsArray = []
 
 function handleClick() {
-    fetch(`http://www.omdbapi.com/?apikey=9f67eb4&s=${userSearch.value}`)
+    fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${userSearch.value}`)
     .then(res => res.json())
     .then(data => {
         // console.log(data)
