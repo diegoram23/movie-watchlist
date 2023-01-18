@@ -7,7 +7,7 @@ body {
 }
 
 nav {
-    padding: 4em 1.5em;
+    padding: 3.5em 1.2em;
     background-color: #6c63cf;
 }
 
@@ -22,7 +22,7 @@ h6{
     border-bottom: 1px solid #ffffff;
     opacity: 0.9;
     cursor: pointer;
-    
+    letter-spacing: 0.1em;
 }
 
 nav > .heading {
