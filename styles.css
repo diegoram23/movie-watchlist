@@ -132,3 +132,7 @@ color: #ffffff;
     padding: 0.5em;
  }
 
+.watchlist-added {
+    background-color: #ffffff;
+    color: #6c63cf;
+}

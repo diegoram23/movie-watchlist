@@ -2,35 +2,38 @@ const userSearch = document.getElementById('user-search')
 const searchBtn = document.getElementById('search-btn')
 let resultsArray = []
 let watchlistArray = []
+let watchlistFromLocalStorage = JSON.parse(localStorage.getItem('watchlist'))
+console.log(`getting ${watchlistFromLocalStorage}`)
 
+
+//Listens for clicks on individual movies rendered
 document.addEventListener('click', function (e) {
-    let selectedItem = e.target.dataset.movieId
+    let selectedMovie = e.target.dataset.movieId
 
-    if (selectedItem) {
+    if (selectedMovie) {
         e.target.textContent = 'Added'
-        e.target.style.background = '#ffffff'
-        e.target.style.color = '#6c63cf'
-        if (!watchlistArray.includes(selectedItem)) {
-            watchlistArray.push(selectedItem)
-            // console.log(watchlistArray)
+        e.target.classList.add('watchlist-added')
+        if (!watchlistArray.includes(selectedMovie)) {
+            addMovie(selectedMovie)
         }
-        addMovie()
+    }
+})
+
+//Gets movies from API based on users search
+searchBtn.addEventListener('click', function () {
+    if (userSearch.value.length >= 1) {
+        fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${userSearch.value}&i=`)
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                resultsArray = data.Search
+                renderResults()
+            })
     }
 })
 
 
-searchBtn.addEventListener('click', function () {
-if (userSearch.value.length >= 1) {
-    fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${userSearch.value}&i=`)
-        .then(res => res.json())
-        .then(data => {
-            // console.log(data)
-            resultsArray = data.Search
-            renderResults()
-        })
-}
-})
-
+//Renders search results based off users choice
 function renderResults() {
     let html = ''
     for (let result of resultsArray) {
@@ -41,14 +44,28 @@ function renderResults() {
    <div class='results-text'>
     <p class='result-title'>${result.Title}</p>
     <p class='result-type'>Type: ${result.Type}</p>
-    <p class='result-year'>Release: ${result.Year}<span class='add-movie' id='add-movie' data-movie-id='${result.imdbID}'>Add to watchlist</span></p>
+    <p class='result-year'>Release: ${result.Year}
+    <span class='add-movie' data-movie-id='${result.imdbID}'>Add to watchlist</span>
+    </p>
     </div>
     </div>
     `
+    watchlistHtml += `
+    <p>test text</p>
+    `
     }
     document.getElementById('start-display').innerHTML = html
+    /*-----------Testing how to change html on watchlist page--------*/
+    document.getElementById('watchlist-movies').innerHTML = `
+    <h1>rere</h1>
+    `
+
 }
 
-function addMovie(selectedItem) {
-    console.log(watchlistArray)
+// Saves users selected movies into watchlist array in localStorage
+function addMovie(selectedMovie) {
+    watchlistArray.push(selectedMovie)
+    localStorage.setItem('watchlist', JSON.stringify(watchlistArray))
+    console.log(`setting ${localStorage.getItem('watchlist')}`)
 }
+
