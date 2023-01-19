@@ -56,9 +56,7 @@ function renderResults() {
     }
     document.getElementById('start-display').innerHTML = html
     /*-----------Testing how to change html on watchlist page--------*/
-    document.getElementById('watchlist-movies').innerHTML = `
-    <h1>rere</h1>
-    `
+   
 
 }
 
@@ -69,3 +67,6 @@ function addMovie(selectedMovie) {
     console.log(`setting ${localStorage.getItem('watchlist')}`)
 }
 
+document.getElementById('watchlist-movies').innerHTML = `
+<h1>rere</h1>
+`
