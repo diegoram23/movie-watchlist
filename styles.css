@@ -8,22 +8,22 @@ body {
 
 nav {
     padding: 3.5em 1.2em;
-    /* background-color: #6c63cf; */
-    background: url('pexels-pavel-danilyuk-7234213.jpg');
+    background-color: #6c63cf;
+    /* background: url('pexels-pavel-danilyuk-7234213.jpg'); */
     background-size: cover;
 }
 
 h1, h6{
     margin: 0;
-    text-shadow: 3px 1px 5px #2d2d2d;
+    text-shadow: 0 0 20px #aaaaaa;
 }
 
 h1{
     font-size: 2rem;
 }
 h6{
+    color: #ffffff;
     border-bottom: 1px solid #ffffff;
-    opacity: 0.9;
     cursor: pointer;
     letter-spacing: 0.1em;
     font-weight: bold;
@@ -32,9 +32,8 @@ h6{
 nav > .heading {
 display: flex;
 justify-content: space-between;
-color: #ffffff;
 align-items: center;
-
+color: #ffffff;
 }
 
 .box{
@@ -59,7 +58,9 @@ align-items: center;
     background: transparent;
     font-size: 18px;
     font-weight: bold;
-    color: #6c63cf;
+    color: #5c5c5c;
+    width: 100%;
+    height: 100%;
 } 
 
 .start-display{
@@ -83,7 +84,6 @@ align-items: center;
     margin: 0;
  }
 .results-container {
-    /* border: 1px solid black; */
     width: 100%;
     display: flex;
     border-bottom: 1px solid black;
@@ -98,12 +98,6 @@ align-items: center;
     font-weight: bold;
     letter-spacing: 0.1em;
  }
-
- /* .results-text {
-    border: 1px solid red;
- } */
- 
-
 
  .result-title {
     color: #6c63cf;
@@ -130,8 +124,6 @@ align-items: center;
 
  .fa-magnifying-glass{
     color: #6c63cf;
+    padding: 0.5em;
  }
 
- ::placeholder{
-    color: #6c63cf;
- }

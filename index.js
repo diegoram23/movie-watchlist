@@ -4,11 +4,19 @@ let resultsArray = []
 let watchlistArray = []
 
 document.addEventListener('click', function (e) {
-    if (e.target.dataset.movieId) {
-        console.log(e.target.dataset.movieId)
-        addMovieToWatchlist()
+    let selectedItem = e.target.dataset.movieId
+
+    if (selectedItem) {
+        e.target.textContent = 'Added'
+        e.target.style.background = '#ffffff'
+        e.target.style.color = '#6c63cf'
+        if (!watchlistArray.includes(selectedItem)) {
+            watchlistArray.push(selectedItem)
+            // console.log(watchlistArray)
+        }
     }
 })
+
 
 searchBtn.addEventListener('click', handleClick)
 
@@ -40,7 +48,3 @@ function renderResults() {
     document.getElementById('start-display').innerHTML = html
 }
 
-function addMovieToWatchlist(){
-    console.log('yes')
-    document.getElementById('add-movie').innerHTML = 'Added'
-}
