@@ -14,6 +14,7 @@ document.addEventListener('click', function (e) {
             watchlistArray.push(selectedItem)
             // console.log(watchlistArray)
         }
+        addMovie()
     }
 })
 
@@ -48,3 +49,6 @@ function renderResults() {
     document.getElementById('start-display').innerHTML = html
 }
 
+function addMovie(selectedItem){
+    console.log(watchlistArray)
+}
