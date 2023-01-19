@@ -13,6 +13,11 @@ nav {
     background-size: cover;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 h1, h6{
     margin: 0;
     text-shadow: 0 0 20px #aaaaaa;

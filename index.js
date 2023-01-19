@@ -19,9 +19,8 @@ document.addEventListener('click', function (e) {
 })
 
 
-searchBtn.addEventListener('click', handleClick)
-
-function handleClick() {
+searchBtn.addEventListener('click', function () {
+if (userSearch.value.length >= 1) {
     fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${userSearch.value}&i=`)
         .then(res => res.json())
         .then(data => {
@@ -30,6 +29,7 @@ function handleClick() {
             renderResults()
         })
 }
+})
 
 function renderResults() {
     let html = ''
@@ -49,6 +49,6 @@ function renderResults() {
     document.getElementById('start-display').innerHTML = html
 }
 
-function addMovie(selectedItem){
+function addMovie(selectedItem) {
     console.log(watchlistArray)
 }
