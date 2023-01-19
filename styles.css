@@ -8,11 +8,14 @@ body {
 
 nav {
     padding: 3.5em 1.2em;
-    background-color: #6c63cf;
+    /* background-color: #6c63cf; */
+    background: url('pexels-pavel-danilyuk-7234213.jpg');
+    background-size: cover;
 }
 
 h1, h6{
     margin: 0;
+    text-shadow: 3px 1px 5px #2d2d2d;
 }
 
 h1{
@@ -23,6 +26,7 @@ h6{
     opacity: 0.9;
     cursor: pointer;
     letter-spacing: 0.1em;
+    font-weight: bold;
 }
 
 nav > .heading {
@@ -30,6 +34,7 @@ display: flex;
 justify-content: space-between;
 color: #ffffff;
 align-items: center;
+
 }
 
 .box{
@@ -52,8 +57,9 @@ align-items: center;
     outline: none;
     border: none;
     background: transparent;
-    font-size: 16px;
-    color: rgb(48, 47, 47);
+    font-size: 18px;
+    font-weight: bold;
+    color: #6c63cf;
 } 
 
 .start-display{
@@ -62,7 +68,7 @@ align-items: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color:rgb(82, 81, 81);
+    color: #5c5c5c;
     padding-left: 0.3em;
     margin: 0 auto;
 }
@@ -81,8 +87,9 @@ align-items: center;
     width: 100%;
     display: flex;
     border-bottom: 1px solid black;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
     height: 100%;
+    padding-bottom: 0.5em;
 
 }
  .result-type, .result-year {
@@ -94,17 +101,35 @@ align-items: center;
     border: 1px solid red;
  } */
  
+
+
  .result-title {
     color: #6c63cf;
     font-weight: bold;
     margin-left: 1em;
+    font-size: 0.9rem;
  }
  
  .add-movie {
-    margin-left: 2.5em;
+    margin-left: 4em;
     color: #ffffff;
     background-color: #6c63cf;
-    padding: 0.3em 0.3em;
+    padding: 0.3em 0.5em;
     border-radius: 5px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
+    font-size: 0.6rem;
+    cursor: pointer;
+ }
+
+ .add-movie:hover {
+    background-color: #ffffff;
+    color: #6c63cf;
+ }
+
+ .fa-magnifying-glass{
+    color: #6c63cf;
+ }
+
+ ::placeholder{
+    color: #6c63cf;
  }
