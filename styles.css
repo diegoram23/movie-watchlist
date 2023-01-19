@@ -1,8 +1,8 @@
 body {
-    margin: 0 auto;
+    margin: 0;
     max-width: 410px;
     font-family: 'Poppins', sans-serif;
-    height: 100vh;
+    min-height: 100vh;
     background-color: rgb(235, 232, 232);
 }
 
@@ -95,6 +95,8 @@ align-items: center;
  .result-type, .result-year {
     font-size: 12px;
     margin-left: 1em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
  }
 
  /* .results-text {
@@ -111,7 +113,7 @@ align-items: center;
  }
  
  .add-movie {
-    margin-left: 4em;
+    margin-left: 2.5em;
     color: #ffffff;
     background-color: #6c63cf;
     padding: 0.3em 0.5em;
