@@ -10,7 +10,7 @@ console.log(`getting ${watchlistFromLocalStorage}`)
 document.addEventListener('click', function (e) {
     let selectedMovie = e.target.dataset.movieId
 
-    if (selectedMovie) {
+    if (selectedMovie && !watchlistArray.includes(selectedMovie)) {
         e.target.textContent = 'Added'
         e.target.classList.add('watchlist-added')
         if (!watchlistArray.includes(selectedMovie)) {
@@ -32,7 +32,6 @@ searchBtn.addEventListener('click', function () {
     }
 })
 
-
 //Renders search results based off users choice
 function renderResults() {
     let html = ''
@@ -50,14 +49,8 @@ function renderResults() {
     </div>
     </div>
     `
-    watchlistHtml += `
-    <p>test text</p>
-    `
     }
-    document.getElementById('start-display').innerHTML = html
-    /*-----------Testing how to change html on watchlist page--------*/
-   
-
+    document.getElementById('start-display').innerHTML = html   
 }
 
 // Saves users selected movies into watchlist array in localStorage
@@ -66,7 +59,3 @@ function addMovie(selectedMovie) {
     localStorage.setItem('watchlist', JSON.stringify(watchlistArray))
     console.log(`setting ${localStorage.getItem('watchlist')}`)
 }
-
-document.getElementById('watchlist-movies').innerHTML = `
-<h1>rere</h1>
-`
