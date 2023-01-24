@@ -83,10 +83,11 @@ color: #ffffff;
 }
 
  .img {
-    height: 130px;
-    width: 85px;
-    display: block;
-    margin: 0;
+    height: 150px;
+    width: 95px;
+    margin: auto 0;
+    display: flex;
+    align-items: center;
  }
 .results-container {
     width: 100%;
@@ -97,18 +98,18 @@ color: #ffffff;
     padding-bottom: 0.5em;
 
 }
- .result-type, .result-year {
-    font-size: 12px;
+ .result-genre, .result-year {
+    font-size: 11px;
     margin-left: 1em;
-    font-weight: bold;
+    font-weight: 600;
     letter-spacing: 0.1em;
  }
 
  .result-title {
     color: #6c63cf;
     font-weight: bold;
-    margin-left: 1em;
-    font-size: 0.9rem;
+    margin: 0 0 0 1em;
+    font-size: 1.1rem;
  }
  
  .add-movie {
@@ -118,7 +119,7 @@ color: #ffffff;
     padding: 0.3em 0.5em;
     border-radius: 5px;
     letter-spacing: 0.15em;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     cursor: pointer;
  }
 
