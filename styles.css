@@ -98,22 +98,27 @@ color: #ffffff;
     padding-bottom: 0.5em;
 
 }
- .result-genre, .result-year {
+
+ .result-plot, .result-runtime {
     font-size: 11px;
     margin-left: 1em;
     font-weight: 600;
     letter-spacing: 0.1em;
  }
+.result-plot {
+    margin: 1.5em 0 2.5em 1em;
+}
+
 
  .result-title {
     color: #6c63cf;
     font-weight: bold;
-    margin: 0 0 0 1em;
+    margin: 0.5em 0 0 1em;
     font-size: 1.1rem;
  }
  
  .add-movie {
-    margin-left: 2.5em;
+    margin-left: 5.5em;
     color: #ffffff;
     background-color: #6c63cf;
     padding: 0.3em 0.5em;
@@ -136,4 +141,8 @@ color: #ffffff;
 .watchlist-added {
     background-color: #ffffff;
     color: #6c63cf;
+}
+
+#watchlist-movies {
+margin-top: 0.5em;
 }
