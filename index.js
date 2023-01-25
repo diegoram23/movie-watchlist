@@ -11,14 +11,20 @@ if(!watchlistArray) {
 //Listens for clicks on document, specifically which movie user adds to watchlist
 document.addEventListener('click', (e) => {
 
-    //selectedMovie is the movie user selects
-    let selectedMovie = e.target.dataset.movieId
+    //movieAdded is the movie user selects
+    let movieAdded = e.target.dataset.movieIdAdd
     //checks to make sure movie has not already been added
-if (selectedMovie && !watchlistArray.includes(selectedMovie)) {
+
+if (movieAdded && !watchlistArray.includes(movieAdded)) {
     //Changes html of add to watchlist button when clicked
     e.target.textContent = 'Added'
     e.target.classList.add('watchlist-added')
-    addMovie(selectedMovie)
+    addMovie(movieAdded)
+}
+    let movieRemoved = e.target.dataset.movieIdRemove
+if (movieRemoved) {
+    removeMovie(movieRemoved)
+    console.log('remove', movieRemoved)
 }
 })
 
@@ -51,7 +57,7 @@ function renderMovieHtml(movieResults){
             <p class='result-title'>${data.Title}</p>
             <p class='result-plot'>${data.Plot}</p>
             <p class='result-runtime'>${data.Runtime}
-            <span class='add-movie' data-movie-id='${data.imdbID}'>Add to watchlist</span>
+            <span class='add-movie' data-movie-id-add='${data.imdbID}'>Add to watchlist</span>
             </p>
             </div>
             </div>
@@ -61,16 +67,14 @@ function renderMovieHtml(movieResults){
     }
 }
 
-
-// Here i am trying to render to the watchlist html. I kept the html short just to test if it works.
-// I have tried this method and also with the fetch method
-// and many variations of it in between
+// Render movies added to watchlist
 function renderWatchlist(){
     if(!watchlistEl) return
 
     let watchlistHtml = ''
-    for(let watch of watchlistArray){
-        fetch(`https://www.omdbapi.com/?apikey=9f67eb4&i=${watch}`)
+    for(let movie of watchlistArray){
+        //Fetches the movies information based off movieId
+        fetch(`https://www.omdbapi.com/?apikey=9f67eb4&i=${movie}`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -81,22 +85,40 @@ function renderWatchlist(){
                 <p class='result-title'>${data.Title}</p>
                 <p class='result-plot'>${data.Plot}</p>
                 <p class='result-runtime'>${data.Runtime}
-                <span class='add-movie' data-movie-id='${data.imdbID}'>Remove</span>
+                <span class='add-movie' data-movie-id-remove='${data.imdbID}'>Remove</span>
                 </p>
             </div>
             </div>
             `
             watchlistEl.innerHTML = watchlistHtml
         })
-    };
+    }
+    if(watchlistArray.length === 0) {
+        watchlistEl.innerHTML = `<p class='empty-display'>So empty...</p>`
+    }
 }
 
 //Adds movie selected to watchlistArray and localStorage
-function addMovie(selectedMovie){
-    if(!watchlistArray.includes(selectedMovie)){
-        console.log('yep')
-        watchlistArray.push(selectedMovie)
+function addMovie(movieAdded){
+    if(!watchlistArray.includes(movieAdded)){
+        watchlistArray.push(movieAdded)
         localStorage.setItem('watchlistArray', JSON.stringify(watchlistArray))
+        
     }
 }
 renderWatchlist()
+
+console.log(localStorage)
+//Try if length is 0 call base display
+function removeMovie(movieRemoved){
+
+    for(film of watchlistArray){
+        if(movieRemoved === film){
+            console.log('this is', film)
+            let movieIndex = watchlistArray.indexOf(film)
+            watchlistArray.splice(movieIndex, 1)
+            localStorage.removeItem('watchlistArray')
+        }
+    }
+    renderWatchlist()
+}

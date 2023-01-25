@@ -72,11 +72,11 @@ color: #ffffff;
     min-height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     color: #5c5c5c;
     padding-left: 0.3em;
-    margin: 0 auto;
+    margin: 0 auto ;
 }
 .large {
     font-size: 60px;
@@ -143,6 +143,10 @@ color: #ffffff;
     color: #6c63cf;
 }
 
-#watchlist-movies {
-margin-top: 0.5em;
+.fa-film {
+    margin-top: 2em;
+}
+.empty-display {
+    margin: auto auto;
+    font-size: 1.35rem;
 }
