@@ -15,7 +15,7 @@ document.addEventListener('click', (e) => {
     let movieAdded = e.target.dataset.movieIdAdd
     //checks to make sure movie has not already been added
 
-if (movieAdded && !watchlistArray.includes(movieAdded)) {
+if (movieAdded) {
     //Changes html of add to watchlist button when clicked
     e.target.textContent = 'Added'
     e.target.classList.add('watchlist-added')
@@ -30,26 +30,23 @@ if (movieRemoved) {
 
 //Listens for click on search box and takes in input value to fetch from API
 if (searchBtn){
-searchBtn.addEventListener('click', () => {
-    if(searchInput.value.length >= 3) {
-    fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${searchInput.value}&type=movie`)
-    .then(res => res.json())
-    .then(data => {
-        //calls to get html based off movie search result
-        renderMovieHtml(data.Search)
+    searchBtn.addEventListener('click', async () => {
+        if(searchInput.value.length >= 3) {
+        const res = await fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${searchInput.value}&type=movie`)
+        const data = await res.json()
+            //calls to get html based off movie search result
+            renderMovieHtml(data.Search)
+        }
     })
-    }
-})
 }
+
 //Receives the data from search result
-function renderMovieHtml(movieResults){
+async function renderMovieHtml(movieResults){
     let moviesHtml = ''
     for (let movie of movieResults) {
         //fetches the full data
-        fetch(`https://www.omdbapi.com/?apikey=9f67eb4&i=${movie.imdbID}`)
-        .then(res => res.json())
-        .then(data => {
-            // console.log(data)
+        const res = await fetch(`https://www.omdbapi.com/?apikey=9f67eb4&i=${movie.imdbID}`)
+        const data = await res.json()
            moviesHtml += `
             <div class='results-container'>
             <img class='img' src='${data.Poster}' />
@@ -62,22 +59,20 @@ function renderMovieHtml(movieResults){
             </div>
             </div>
             `
-            document.getElementById('start-display').innerHTML = moviesHtml 
-        })
+            document.getElementById('start-display').innerHTML = moviesHtml
+        }
     }
-}
 
 // Render movies added to watchlist
-function renderWatchlist(){
+async function renderWatchlist(){
     if(!watchlistEl) return
 
     let watchlistHtml = ''
     for(let movie of watchlistArray){
         //Fetches the movies information based off movieId
-        fetch(`https://www.omdbapi.com/?apikey=9f67eb4&i=${movie}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
+        const res = await fetch(`https://www.omdbapi.com/?apikey=9f67eb4&i=${movie}`)
+        const data = await res.json()
+            //console.log(data)
             watchlistHtml += `
             <div class='results-container'>
                 <img class='img' src='${data.Poster}' />
@@ -91,12 +86,11 @@ function renderWatchlist(){
             </div>
             `
             watchlistEl.innerHTML = watchlistHtml
-        })
-    }
-    if(watchlistArray.length === 0) {
-        watchlistEl.innerHTML = `<p class='empty-display'>So empty...</p>`
-    }
-}
+        }
+        if(watchlistArray.length === 0) {
+            watchlistEl.innerHTML = `<p class='empty-display'>So empty...</p>`
+        }
+    } 
 
 //Adds movie selected to watchlistArray and localStorage
 function addMovie(movieAdded){
@@ -108,7 +102,6 @@ function addMovie(movieAdded){
 }
 renderWatchlist()
 
-console.log(localStorage)
 //Try if length is 0 call base display
 function removeMovie(movieRemoved){
 
