@@ -1,61 +1,124 @@
-const userSearch = document.getElementById('user-search')
+//DOM elements
 const searchBtn = document.getElementById('search-btn')
-let resultsArray = []
-let watchlistArray = []
-let watchlistFromLocalStorage = JSON.parse(localStorage.getItem('watchlist'))
-console.log(`getting ${watchlistFromLocalStorage}`)
-
-
-//Listens for clicks on individual movies rendered
-document.addEventListener('click', function (e) {
-    let selectedMovie = e.target.dataset.movieId
-
-    if (selectedMovie && !watchlistArray.includes(selectedMovie)) {
-        e.target.textContent = 'Added'
-        e.target.classList.add('watchlist-added')
-        if (!watchlistArray.includes(selectedMovie)) {
-            addMovie(selectedMovie)
-        }
-    }
-})
-
-//Gets movies from API based on users search
-searchBtn.addEventListener('click', function () {
-    if (userSearch.value.length >= 1) {
-        fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${userSearch.value}&i=`)
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data)
-                resultsArray = data.Search
-                renderResults()
-            })
-    }
-})
-
-//Renders search results based off users choice
-function renderResults() {
-    let html = ''
-    for (let result of resultsArray) {
-        // console.log(result)
-        html += `
-    <div class='results-container'>
-    <img class='img' src='${result.Poster}' />
-   <div class='results-text'>
-    <p class='result-title'>${result.Title}</p>
-    <p class='result-type'>Type: ${result.Type}</p>
-    <p class='result-year'>Release: ${result.Year}
-    <span class='add-movie' data-movie-id='${result.imdbID}'>Add to watchlist</span>
-    </p>
-    </div>
-    </div>
-    `
-    }
-    document.getElementById('start-display').innerHTML = html   
+const searchInput = document.getElementById('user-search')
+const watchlistEl = document.querySelector('#watchlist-movies')
+//Where selected movie data is stored
+let watchlistArray = JSON.parse(localStorage.getItem('watchlistArray'))
+if(!watchlistArray) {
+    watchlistArray = []
 }
 
-// Saves users selected movies into watchlist array in localStorage
-function addMovie(selectedMovie) {
-    watchlistArray.push(selectedMovie)
-    localStorage.setItem('watchlist', JSON.stringify(watchlistArray))
-    console.log(`setting ${localStorage.getItem('watchlist')}`)
+//Listens for clicks on document, specifically which movie user adds to watchlist
+document.addEventListener('click', (e) => {
+
+    //movieAdded is the movie user selects
+    let movieAdded = e.target.dataset.movieIdAdd
+    //checks to make sure movie has not already been added
+
+if (movieAdded && !watchlistArray.includes(movieAdded)) {
+    //Changes html of add to watchlist button when clicked
+    e.target.textContent = 'Added'
+    e.target.classList.add('watchlist-added')
+    addMovie(movieAdded)
+}
+    let movieRemoved = e.target.dataset.movieIdRemove
+if (movieRemoved) {
+    removeMovie(movieRemoved)
+    console.log('remove', movieRemoved)
+}
+})
+
+//Listens for click on search box and takes in input value to fetch from API
+if (searchBtn){
+searchBtn.addEventListener('click', () => {
+    if(searchInput.value.length >= 3) {
+    fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${searchInput.value}&type=movie`)
+    .then(res => res.json())
+    .then(data => {
+        //calls to get html based off movie search result
+        renderMovieHtml(data.Search)
+    })
+    }
+})
+}
+//Receives the data from search result
+function renderMovieHtml(movieResults){
+    let moviesHtml = ''
+    for (let movie of movieResults) {
+        //fetches the full data
+        fetch(`https://www.omdbapi.com/?apikey=9f67eb4&i=${movie.imdbID}`)
+        .then(res => res.json())
+        .then(data => {
+            // console.log(data)
+           moviesHtml += `
+            <div class='results-container'>
+            <img class='img' src='${data.Poster}' />
+           <div class='results-text'>
+            <p class='result-title'>${data.Title}</p>
+            <p class='result-plot'>${data.Plot}</p>
+            <p class='result-runtime'>${data.Runtime}
+            <span class='add-movie' data-movie-id-add='${data.imdbID}'>Add to watchlist</span>
+            </p>
+            </div>
+            </div>
+            `
+            document.getElementById('start-display').innerHTML = moviesHtml 
+        })
+    }
+}
+
+// Render movies added to watchlist
+function renderWatchlist(){
+    if(!watchlistEl) return
+
+    let watchlistHtml = ''
+    for(let movie of watchlistArray){
+        //Fetches the movies information based off movieId
+        fetch(`https://www.omdbapi.com/?apikey=9f67eb4&i=${movie}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            watchlistHtml += `
+            <div class='results-container'>
+                <img class='img' src='${data.Poster}' />
+           <div class='results-text'>
+                <p class='result-title'>${data.Title}</p>
+                <p class='result-plot'>${data.Plot}</p>
+                <p class='result-runtime'>${data.Runtime}
+                <span class='add-movie' data-movie-id-remove='${data.imdbID}'>Remove</span>
+                </p>
+            </div>
+            </div>
+            `
+            watchlistEl.innerHTML = watchlistHtml
+        })
+    }
+    if(watchlistArray.length === 0) {
+        watchlistEl.innerHTML = `<p class='empty-display'>So empty...</p>`
+    }
+}
+
+//Adds movie selected to watchlistArray and localStorage
+function addMovie(movieAdded){
+    if(!watchlistArray.includes(movieAdded)){
+        watchlistArray.push(movieAdded)
+        localStorage.setItem('watchlistArray', JSON.stringify(watchlistArray))
+        
+    }
+}
+renderWatchlist()
+
+console.log(localStorage)
+//Try if length is 0 call base display
+function removeMovie(movieRemoved){
+
+    for(film of watchlistArray){
+        if(movieRemoved === film){
+            console.log('this is', film)
+            let movieIndex = watchlistArray.indexOf(film)
+            watchlistArray.splice(movieIndex, 1)
+            localStorage.removeItem('watchlistArray')
+        }
+    }
+    renderWatchlist()
 }
