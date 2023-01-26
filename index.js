@@ -115,7 +115,7 @@ function removeMovie(movieRemoved){
             console.log('this is', film)
             let movieIndex = watchlistArray.indexOf(film)
             watchlistArray.splice(movieIndex, 1)
-            localStorage.removeItem('watchlistArray')
+            localStorage.setItem('watchlistArray', JSON.stringify(watchlistArray))
         }
     }
     renderWatchlist()
