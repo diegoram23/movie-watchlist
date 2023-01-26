@@ -39,7 +39,8 @@ if (searchBtn){
 async function handleSearch(){
     //Will only call if user enters 3 letters or more
         if(searchInput.value.length >= 3) {
-        const res = await fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${searchInput.value}&type=movie`)
+            //.trim() removes white space from input value at beginning and end of string
+        const res = await fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${searchInput.value.trim()}&type=movie`)
         const data = await res.json()
             //calls to get html based off movie search result
             renderMovieHtml(data.Search)
