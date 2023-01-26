@@ -96,7 +96,6 @@ color: #ffffff;
     margin-bottom: 0.5em;
     height: 100%;
     padding-bottom: 0.5em;
-
 }
 
  .result-plot, .result-runtime {
@@ -149,4 +148,8 @@ color: #ffffff;
 .empty-display {
     margin: auto auto;
     font-size: 1.35rem;
+}
+
+#watchlist-movies{
+    margin-top: 0.5em;
 }
