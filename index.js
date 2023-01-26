@@ -4,6 +4,7 @@ const searchInput = document.getElementById('user-search')
 const watchlistEl = document.querySelector('#watchlist-movies')
 //Where selected movie data is stored
 let watchlistArray = JSON.parse(localStorage.getItem('watchlistArray'))
+
 if(!watchlistArray) {
     watchlistArray = []
 }
@@ -22,23 +23,28 @@ if (movieAdded) {
     addMovie(movieAdded)
 }
     let movieRemoved = e.target.dataset.movieIdRemove
+    //Calls removeMovie when remove button clicked from watchlist.html
 if (movieRemoved) {
     removeMovie(movieRemoved)
-    console.log('remove', movieRemoved)
 }
 })
 
-//Listens for click on search box and takes in input value to fetch from API
+//Listens for click on search box and calls handleSearch
+//Only works on index.html
 if (searchBtn){
-    searchBtn.addEventListener('click', async () => {
+    searchBtn.addEventListener('click', handleSearch)
+}
+
+//Calls API and receives data based off search
+async function handleSearch(){
+    //Will only call if user enters 3 letters or more
         if(searchInput.value.length >= 3) {
         const res = await fetch(`https://www.omdbapi.com/?apikey=9f67eb4&s=${searchInput.value}&type=movie`)
         const data = await res.json()
             //calls to get html based off movie search result
             renderMovieHtml(data.Search)
         }
-    })
-}
+    }
 
 //Receives the data from search result
 async function renderMovieHtml(movieResults){
@@ -102,9 +108,8 @@ function addMovie(movieAdded){
 }
 renderWatchlist()
 
-//Try if length is 0 call base display
+// Removes selected item from watchlist and calls renderWatchlist
 function removeMovie(movieRemoved){
-
     for(film of watchlistArray){
         if(movieRemoved === film){
             console.log('this is', film)
